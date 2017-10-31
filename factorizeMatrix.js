@@ -1,13 +1,12 @@
 /**
  * Gets the factors of a matrix
  * 
- * @param {*} R 
- * @param {*} P 
- * @param {*} Q 
- * @param {*} K 
- * @param {*} iters 
- * @param {*} learning_rate 
- * @param {*} regularization 
+ * @param {Array} R 
+ * @param {Number} K 
+ * @param {Number} iters 
+ * @param {Number} learning_rate 
+ * @param {Number} regularization 
+ * @returns {Array}
  */
 function factorizeMatrix(R, K, iters=5000, learning_rate=0.0002, regularization=0.02) {
   const N = R.length
