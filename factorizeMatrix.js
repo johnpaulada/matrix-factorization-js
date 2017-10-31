@@ -9,7 +9,11 @@
  * @param {*} learning_rate 
  * @param {*} regularization 
  */
-function factorizeMatrix(R, P, Q, K, iters=5000, learning_rate=0.0002, regularization=0.02) {
+function factorizeMatrix(R, K, iters=5000, learning_rate=0.0002, regularization=0.02) {
+  const N = R.length
+  const M = R[0].length
+  const P = fillMatrix(N, K, () => Math.random())
+  const Q = fillMatrix(M, K, () => Math.random())
   const QT = transpose(Q)
   const ROW_COUNT = R.length
   const COLUMN_COUNT = R[0].length

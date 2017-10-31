@@ -16,13 +16,8 @@ const R = [
 
 // Number of latent features
 const K = 5
-const N = R.length
-const M = R[0].length
 
-// Random matrix factors
-const randomP = fillMatrix(N, K, () => Math.random())
-const randomQ = fillMatrix(M, K, () => Math.random())
-const [P, Q] = factorizeMatrix(R, randomP, randomQ, K)
+const [P, Q] = factorizeMatrix(R, K)
 const newR = dot(P, transpose(Q))
 
 // New table using the generated factors
