@@ -25,6 +25,8 @@ function factorizeMatrix(R, K, iters=5000, learning_rate=0.0002, regularization=
     for (let i = 0; i < ROW_COUNT; i++) {
       for (let j = 0; j < COLUMN_COUNT; j++) {
         const trueValue = R[i][j]
+
+        // Process non-empty values
         if (trueValue > 0) {
           const currentValue = dot(P[i], columnVector(QT, j))
           const error = trueValue - currentValue
@@ -41,6 +43,8 @@ function factorizeMatrix(R, K, iters=5000, learning_rate=0.0002, regularization=
     for (let i = 0; i < ROW_COUNT; i++) {
       for (let j = 0; j < COLUMN_COUNT; j++) {
         const trueValue = R[i][j]
+
+        // Process non-empty values
         if (trueValue > 0) {
           const currentValue = dot(P[i], columnVector(QT, j))
           const error = trueValue - currentValue
