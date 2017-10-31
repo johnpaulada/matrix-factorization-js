@@ -178,9 +178,18 @@ function doFor(n, fn) {
   while(i++ < n) fn()
 }
 
-module.exports = {
+const toExport = {
   factorizeMatrix,
   fillMatrix,
   transpose,
   dot
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = toExport
+} else {
+  window.factorizeMatrix = factorizeMatrix
+  window.fillMatrix = fillMatrix
+  window.transpose = transpose
+  window.dot = dot
 }
