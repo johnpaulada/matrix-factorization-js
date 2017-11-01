@@ -6,7 +6,7 @@
  * @param {Number} iters Number of times to move towards the real factors
  * @param {Number} learning_rate Learning rate
  * @param {Number} regularization_rate Regularization amount, i.e. amount of bias reduction
- * @returns {Array}
+ * @returns {Array} An array containing the two factor matrices
  */
 function factorizeMatrix(R, K, iters=5000, learning_rate=0.0002, regularization_rate=0.02) {
   const N = R.length
@@ -68,7 +68,7 @@ function factorizeMatrix(R, K, iters=5000, learning_rate=0.0002, regularization_
 /**
  * Transposes a matrix
  * 
- * @param {Array} matrix
+ * @param {Array} matrix Target matrix
  * @returns {Array} The transposed matrix
  */
 function transpose(matrix) {
@@ -83,6 +83,11 @@ function transpose(matrix) {
   }
 }
 
+/**
+ * Checks if value passed is a matrix.
+ * @param {*} m Value to check
+ * @returns {boolean} True if matrix, false if not
+ */
 function isMatrix(m) {
   return Array.isArray(m[0])
 }
@@ -90,9 +95,9 @@ function isMatrix(m) {
 /**
  * Gets the dot product of two matrices.
  * 
- * @param {Array} m 
- * @param {Array} n 
- * @returns {Array}
+ * @param {Array} m First matrix
+ * @param {Array} n Second matrix
+ * @returns {Array} Dot product of the two matrices
  */
 function dot(m, n) {
   const transposedN = transpose(n)
@@ -151,9 +156,10 @@ function square(x) {
 /**
  * Creates an n x m matrix filled with the result of given fill function
  * 
- * @param {Array} n 
- * @param {Array} m 
- * @returns {Array}
+ * @param {Array} n Number of rows
+ * @param {Array} m Number of columns
+ * @param {Function} fill Function used to fill the matrix with
+ * @returns {Array} The filled matrix
  */
 function fillMatrix(n, m, fill = () => 0) {
   let matrix = []
@@ -170,14 +176,15 @@ function fillMatrix(n, m, fill = () => 0) {
 /**
  * Execute given function n times.
  * 
- * @param {*} n 
- * @param {*} fn
+ * @param {Number} n Number of times to execute function
+ * @param {*} fn Function to execute
  */
 function doFor(n, fn) {
   let i = 0
   while(i++ < n) fn()
 }
 
+// Functions to export
 const toExport = {
   factorizeMatrix,
   fillMatrix,
@@ -185,8 +192,10 @@ const toExport = {
   dot
 }
 
+// If in Node, export as module
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = toExport
 } else {
+  // If in browser, export to a `matrixFactorization` global variable
   window.matrixFactorization = toExport
 }
