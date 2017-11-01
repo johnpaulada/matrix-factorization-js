@@ -1,14 +1,14 @@
 /**
  * Gets the factors of a matrix
  * 
- * @param {Array} R 
- * @param {Number} K 
- * @param {Number} iters 
- * @param {Number} learning_rate 
- * @param {Number} regularization 
+ * @param {Array} R target matrix
+ * @param {Number} K Number of latent features
+ * @param {Number} iters Number of times to move towards the real factors
+ * @param {Number} learning_rate Learning rate
+ * @param {Number} regularization_rate Regularization amount, i.e. amount of bias reduction
  * @returns {Array}
  */
-function factorizeMatrix(R, K, iters=5000, learning_rate=0.0002, regularization=0.02) {
+function factorizeMatrix(R, K, iters=5000, learning_rate=0.0002, regularization_rate=0.02) {
   const N = R.length
   const M = R[0].length
   const P = fillMatrix(N, K, () => Math.random())
@@ -30,8 +30,8 @@ function factorizeMatrix(R, K, iters=5000, learning_rate=0.0002, regularization=
           const currentValue = dot(P[i], columnVector(QT, j))
           const error = trueValue - currentValue
           for (let k = 0; k < K; k++) {
-            P[i][k] = P[i][k] + learning_rate * (2 * error * QT[k][j] - regularization * P[i][k])
-            QT[k][j] = QT[k][j] + learning_rate * (2 * error * P[i][k] - regularization * QT[k][j])
+            P[i][k] = P[i][k] + learning_rate * (2 * error * QT[k][j] - regularization_rate * P[i][k])
+            QT[k][j] = QT[k][j] + learning_rate * (2 * error * P[i][k] - regularization_rate * QT[k][j])
           }
         }
       }
@@ -49,7 +49,7 @@ function factorizeMatrix(R, K, iters=5000, learning_rate=0.0002, regularization=
           const error = trueValue - currentValue
           threshold = threshold + square(error)
           for (let k = 0; k < K; k++) {
-            threshold = threshold + (regularization / 2) * (square(P[i][k]) + square(P[k][j]))
+            threshold = threshold + (regularization_rate / 2) * (square(P[i][k]) + square(P[k][j]))
           }
         }
       }
@@ -188,8 +188,5 @@ const toExport = {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = toExport
 } else {
-  window.factorizeMatrix = factorizeMatrix
-  window.fillMatrix = fillMatrix
-  window.transpose = transpose
-  window.dot = dot
+  window.matrixFactorization = toExport
 }
