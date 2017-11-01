@@ -85,7 +85,7 @@ function transpose(matrix) {
 
 /**
  * Checks if value passed is a matrix.
- * @param {*} m Value to check
+ * @param {Array} m Value to check
  * @returns {boolean} True if matrix, false if not
  */
 function isMatrix(m) {
@@ -123,8 +123,8 @@ function columnVector(matrix, index) {
 /**
  * Multiplies vectors together and sums the resulting vector up.
  * 
- * @param {*} v 
- * @param {*} w 
+ * @param {Array} v 
+ * @param {Array} w 
  * @returns {Number}
  */
 function dotVectors(v, w) {
@@ -134,9 +134,9 @@ function dotVectors(v, w) {
 /**
  * Reduces two lists into one using the given function.
  * 
- * @param {*} a1 
- * @param {*} a2 
- * @param {*} fn A function that accepts two values and returns a single value 
+ * @param {Array} a1 
+ * @param {Array} a2 
+ * @param {Function} fn A function that accepts two values and returns a single value 
  * @returns A list which is a combination of the two lists
  */
 function bimap(a1, a2, fn) {
@@ -177,7 +177,7 @@ function fillMatrix(n, m, fill = () => 0) {
  * Execute given function n times.
  * 
  * @param {Number} n Number of times to execute function
- * @param {*} fn Function to execute
+ * @param {Function} fn Function to execute
  */
 function doFor(n, fn) {
   let i = 0
