@@ -2,6 +2,8 @@
 A matrix factorization implementation in Javascript.
 *This is a Work in Progress. Use at your own risk.*
 
+[![](https://data.jsdelivr.com/v1/package/npm/matrix-factorization/badge)](https://www.jsdelivr.com/package/npm/matrix-factorization)
+
 [![forthebadge](http://forthebadge.com/images/badges/uses-js.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
@@ -46,7 +48,10 @@ Copy `matrix-factorization.min.js` from `dist/matrix-factorization.min.js` to a 
 This will expose a `matrixFactorization` variable which you can access the functions from.
 
 ### Include using CDN
-Coming soon.
+```html
+<script src="https://cdn.jsdelivr.net/npm/matrix-factorization@1.0.0/index.min.js"></script>
+```
+This will expose a `matrixFactorization` variable which you can access the functions from.
 
 ### Using a function in the library:
 
