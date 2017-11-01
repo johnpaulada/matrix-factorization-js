@@ -2,6 +2,7 @@
 A matrix factorization implementation in Javascript.
 *This is a Work in Progress. Use at your own risk.*
 
+[![Build Status](https://travis-ci.org/johnpaulada/matrix-factorization-js.svg?branch=master)](https://travis-ci.org/johnpaulada/matrix-factorization-js)
 [![](https://data.jsdelivr.com/v1/package/npm/matrix-factorization/badge)](https://www.jsdelivr.com/package/npm/matrix-factorization)
 
 [![forthebadge](http://forthebadge.com/images/badges/uses-js.svg)](http://forthebadge.com)
