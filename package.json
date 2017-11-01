@@ -1,14 +1,14 @@
 {
-  "name": "@johnpaulada/matrix-factorization-js",
+  "name": "@johnpaulada/matrix-factorization",
   "version": "1.0.0",
   "description": "A matrix factorization implementation written in JavaScript.",
-  "main": "factorizeMatrix.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/johnpaulada/factorizeMatrix.git"
+    "url": "git+https://github.com/johnpaulada/matrix-factorization-js.git"
   },
   "keywords": [
     "matrix-factorization",
@@ -17,9 +17,9 @@
   "author": "John Paul Ada",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/johnpaulada/factorizeMatrix/issues"
+    "url": "https://github.com/johnpaulada/matrix-factorization-js/issues"
   },
-  "homepage": "https://github.com/johnpaulada/factorizeMatrix#readme",
+  "homepage": "https://github.com/johnpaulada/matrix-factorization-js#readme",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
