@@ -8,6 +8,8 @@ A matrix factorization implementation in Javascript.
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
 
+*To try an interactive example, clone and edit this [Runkit Notebook](https://runkit.com/johnpaulada/matrix-factorization-js-usage-example).*
+
 ## Installing / Getting started
 
 ### Install using `npm`:
@@ -71,7 +73,6 @@ var completeMatrix = matrixFactorization.dot(factors[0], matrixFactorization.tra
 1. Add unit tests.
 2. Make code cleaner and easier to understand.
 3. Create demo app.
-4. Docs
 
 ## Notes
 Implementation based on this [article](http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/) by [@albertauyeung](https://github.com/albertauyeung).
