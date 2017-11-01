@@ -73,6 +73,7 @@ var completeMatrix = matrixFactorization.dot(factors[0], matrixFactorization.tra
 1. Add unit tests.
 2. Make code cleaner and easier to understand.
 3. Create demo app.
+4. Improve docs.
 
 ## Notes
 Implementation based on this [article](http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/) by [@albertauyeung](https://github.com/albertauyeung).
