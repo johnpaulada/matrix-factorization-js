@@ -1,5 +1,5 @@
 {
-  "name": "@johnpaulada/matrix-factorization",
+  "name": "matrix-factorization",
   "version": "1.0.0",
   "description": "A matrix factorization implementation written in JavaScript.",
   "main": "index.js",

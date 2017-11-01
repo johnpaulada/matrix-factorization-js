@@ -28,7 +28,7 @@ const uglifyCompressOptions = {
 
   gulp.task('js', function(cb){
     pump([
-      gulp.src('src/factorizeMatrix.js'),
+      gulp.src('src/matrix-factorization.js'),
       babel({presets: 'es2015'}),
       uglify({
         compress: uglifyCompressOptions,

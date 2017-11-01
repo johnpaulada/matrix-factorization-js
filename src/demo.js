@@ -3,7 +3,7 @@ const {
   fillMatrix,
   dot,
   transpose
-} = require('./factorizeMatrix.min')
+} = require('./matrix-factorization')
 
 // Original matrix
 const R = [

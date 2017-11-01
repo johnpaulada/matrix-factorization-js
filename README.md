@@ -1,4 +1,4 @@
-# factorizeMatrix
+# Matrix Factorization JS
 A matrix factorization implementation in Javascript.
 *This is a Work in Progress. Use at your own risk.*
 
@@ -6,17 +6,67 @@ A matrix factorization implementation in Javascript.
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
 
-## Example
+## Installing / Getting started
+
+### Install using `npm`:
+```bash
+npm install matrix-factorization
+```
+
+#### Import in code
 ```javascript
-const { factorizeMatrix, transpose, dot } = require('factorizeMatrix')
-const [factor1, factor2] = factorizeMatrix(targetMatrix, numberOfLatentFactors)
-const completeMatrix = dot(factor1, transpose(factor2))
+// Node, ES5
+var matrixFactorization = require('matrix-factorization')
+
+// Node, ES6
+const matrixFactorization = require('matrix-factorization')
+```
+
+### Install using `yarn`:
+```bash
+yarn add matrix-factorization
+```
+
+#### Import in code
+```javascript
+// Node, ES5
+var matrixFactorization = require('matrix-factorization')
+
+// Node, ES6
+const matrixFactorization = require('matrix-factorization')
+```
+
+### Install with minified library
+Copy `matrix-factorization.min.js` from `dist/matrix-factorization.min.js` to a `lib` folder.
+
+#### Import in code
+```html
+<script src="lib/matrix-factorization.min.js"></script>
+```
+This will expose a `matrixFactorization` variable which you can access the functions from.
+
+### Include using CDN
+Coming soon.
+
+### Using a function in the library:
+
+Just reference a function using the dot notation. For example, to use the sum function, you can do:
+
+```javascript
+matrixFactorization.factorizeMatrix(targetMatrix, numberOfLatentFactors)
+```
+
+### Example
+```javascript
+var factors = factorizeMatrix(targetMatrix, numberOfLatentFactors)
+var completeMatrix = matrixFactorization.dot(factors[0], matrixFactorization.transpose(factors[1]))
 ```
 
 ## Roadmap
 1. Add unit tests.
 2. Make code cleaner and easier to understand.
 3. Create demo app.
+4. Docs
 
 ## Notes
 Implementation based on this [article](http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/) by [@albertauyeung](https://github.com/albertauyeung).
