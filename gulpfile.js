@@ -28,7 +28,7 @@ const uglifyCompressOptions = {
 
   gulp.task('js', function(cb){
     pump([
-      gulp.src('src/*.js'),
+      gulp.src('src/factorizeMatrix.js'),
       babel({presets: 'es2015'}),
       uglify({
         compress: uglifyCompressOptions,
@@ -37,13 +37,6 @@ const uglifyCompressOptions = {
       }),
       rename({suffix: '.min'}),
       gulp.dest('dist/'),
-      gulp.src('src/factorizeMatrix.js'),
-      babel({presets: 'es2015'}),
-      uglify({
-        compress: uglifyCompressOptions,
-        mangle: uglifyMangleOptions,
-        output: uglifyOutputOptions
-      }),
       rename('index.js'),
       gulp.dest('.')
     ], cb)
