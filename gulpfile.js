@@ -36,8 +36,19 @@ const uglifyCompressOptions = {
         output: uglifyOutputOptions
       }),
       rename({suffix: '.min'}),
-      gulp.dest('dist/')
+      gulp.dest('dist/'),
+      gulp.src('src/factorizeMatrix.js'),
+      babel({presets: 'es2015'}),
+      uglify({
+        compress: uglifyCompressOptions,
+        mangle: uglifyMangleOptions,
+        output: uglifyOutputOptions
+      }),
+      rename('index.js'),
+      gulp.dest('.')
     ], cb)
   });
+
+
 
   gulp.task('default', ['js'])
