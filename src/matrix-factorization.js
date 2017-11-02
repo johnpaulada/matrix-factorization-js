@@ -50,37 +50,55 @@ function factorizeMatrix(TARGET_MATRIX, LATENT_FEATURES_COUNT=5, ITERS=5000, LEA
       })
     })
   
-    // Start calculating totalError
-    let totalError = 0
-
-    doFor(ROW_COUNT, i => {
-      doFor(COLUMN_COUNT, j => {
-
-        // Get actual value on target matrix
-        const TRUE_VALUE = TARGET_MATRIX[i][j]
-        
-        // Process non-empty values
-        if (TRUE_VALUE > 0) {
-
-          // Get difference of actual value and the current approximate value as error
-          const CURRENT_VALUE = dot(factorMatrix1[i], columnVector(transposedFactorMatrix2, j))
-          const ERROR = TRUE_VALUE - CURRENT_VALUE
-
-          // Increment totalError with current error
-          totalError = totalError + square(ERROR)
-
-          doFor(LATENT_FEATURES_COUNT, k => {
-            totalError = totalError + (REGULARIZATION_RATE / 2) * (square(factorMatrix1[i][k]) + square(transposedFactorMatrix2[k][j]))
-          })
-        }
-      })
-    })
+    // Calculating totalError
+    const TOTAL_ERROR = calculateError(ROW_COUNT, COLUMN_COUNT, TARGET_MATRIX, LATENT_FEATURES_COUNT, REGULARIZATION_RATE, factorMatrix1, transposedFactorMatrix2)
 
     // Complete factorization process if total error falls below a certain threshold
-    if (totalError < THRESHOLD) return
+    if (TOTAL_ERROR < THRESHOLD) return
   })
 
   return [factorMatrix1, transpose(transposedFactorMatrix2)]
+}
+
+/**
+ * Calculate total error of factor matrices
+ * 
+ * @param {Number} ROW_COUNT 
+ * @param {Number} COLUMN_COUNT 
+ * @param {Array} TARGET_MATRIX 
+ * @param {Number} LATENT_FEATURES_COUNT 
+ * @param {Number} REGULARIZATION_RATE 
+ * @param {Array} factorMatrix1 
+ * @param {Array} transposedFactorMatrix2 
+ * @returns {Number}
+ */
+function calculateError(ROW_COUNT, COLUMN_COUNT, TARGET_MATRIX, LATENT_FEATURES_COUNT, REGULARIZATION_RATE, factorMatrix1, transposedFactorMatrix2) {
+  let totalError = 0
+
+  doFor(ROW_COUNT, i => {
+    doFor(COLUMN_COUNT, j => {
+
+      // Get actual value on target matrix
+      const TRUE_VALUE = TARGET_MATRIX[i][j]
+      
+      // Process non-empty values
+      if (TRUE_VALUE > 0) {
+
+        // Get difference of actual value and the current approximate value as error
+        const CURRENT_VALUE = dot(factorMatrix1[i], columnVector(transposedFactorMatrix2, j))
+        const ERROR = TRUE_VALUE - CURRENT_VALUE
+
+        // Increment totalError with current error
+        totalError = totalError + square(ERROR)
+
+        doFor(LATENT_FEATURES_COUNT, k => {
+          totalError = totalError + (REGULARIZATION_RATE / 2) * (square(factorMatrix1[i][k]) + square(transposedFactorMatrix2[k][j]))
+        })
+      }
+    })
+  })
+
+  return totalError
 }
 
 /***************************

@@ -15,7 +15,7 @@ const R = [
 ]
 
 // Number of latent features
-const K = 5
+const K = 2
 
 const [P, Q] = factorizeMatrix(R, K)
 const newR = dot(P, transpose(Q))
