@@ -24,5 +24,5 @@ test('transpose should properly transpose matrix', t => {
 test('transposing a vector should return itself', t => {
   const targetVector = [5, 3]
   
-  t.deepEqual(transpose(targetVector), [5, 3])
+  t.deepEqual(transpose(targetVector), targetVector)
 });
