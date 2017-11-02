@@ -4,7 +4,7 @@
   "description": "A matrix factorization implementation written in JavaScript.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "ava tests",
     "docs": "documentation build src/** -f html -o docs"
   },
   "repository": {
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/johnpaulada/matrix-factorization-js#readme",
   "devDependencies": {
+    "ava": "^0.23.0",
     "babel-core": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "gulp": "^3.9.1",

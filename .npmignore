@@ -1,5 +1,6 @@
 src/
 docs/
+tests/
 node_modules/
 codealike.json
 .esdoc.json
