@@ -3,12 +3,12 @@
  * 
  * @param {Array} TARGET_MATRIX target matrix
  * @param {Number} LATENT_FEATURES_COUNT Number of latent features
- * @param {Number} iters Number of times to move towards the real factors
- * @param {Number} learning_rate Learning rate
- * @param {Number} regularization_rate Regularization amount, i.e. amount of bias reduction
+ * @param {Number} ITERS Number of times to move towards the real factors
+ * @param {Number} LEARNING_RATE Learning rate
+ * @param {Number} REGULARIZATION_RATE Regularization amount, i.e. amount of bias reduction
  * @returns {Array} An array containing the two factor matrices
  */
-function factorizeMatrix(TARGET_MATRIX, LATENT_FEATURES_COUNT, iters=5000, learning_rate=0.0002, regularization_rate=0.02) {
+function factorizeMatrix(TARGET_MATRIX, LATENT_FEATURES_COUNT, ITERS=5000, LEARNING_RATE=0.0002, REGULARIZATION_RATE=0.02, THRESHOLD=0.001) {
   const FACTOR1_ROW_COUNT = TARGET_MATRIX.length
   const FACTOR2_ROW_COUNT = TARGET_MATRIX[0].length
   const factorMatrix1 = fillMatrix(FACTOR1_ROW_COUNT, LATENT_FEATURES_COUNT, () => Math.random())
@@ -17,43 +17,63 @@ function factorizeMatrix(TARGET_MATRIX, LATENT_FEATURES_COUNT, iters=5000, learn
   const ROW_COUNT = TARGET_MATRIX.length
   const COLUMN_COUNT = TARGET_MATRIX[0].length
 
-  doFor(iters, () => {
+  doFor(ITERS, () => {
+
     // Iteratively figure out correct factors
     for (let i = 0; i < ROW_COUNT; i++) {
       for (let j = 0; j < COLUMN_COUNT; j++) {
+
+        // Get actual value on target matrix
         const TRUE_VALUE = TARGET_MATRIX[i][j]
 
         // Process non-empty values
         if (TRUE_VALUE > 0) {
+
+          // Get difference of actual value and the current approximate value as error
           const CURRENT_VALUE = dot(factorMatrix1[i], columnVector(transposedFactorMatrix2, j))
           const ERROR = TRUE_VALUE - CURRENT_VALUE
+
+          // Update factor matrices
           for (let k = 0; k < LATENT_FEATURES_COUNT; k++) {
-            factorMatrix1[i][k] = factorMatrix1[i][k] + learning_rate * (2 * ERROR * transposedFactorMatrix2[k][j] - regularization_rate * factorMatrix1[i][k])
-            transposedFactorMatrix2[k][j] = transposedFactorMatrix2[k][j] + learning_rate * (2 * ERROR * factorMatrix1[i][k] - regularization_rate * transposedFactorMatrix2[k][j])
+
+            // Update factor matrix 1
+            factorMatrix1[i][k] = factorMatrix1[i][k] + LEARNING_RATE * (2 * ERROR * transposedFactorMatrix2[k][j] - REGULARIZATION_RATE * factorMatrix1[i][k])
+
+            // Update factor matrix 2
+            transposedFactorMatrix2[k][j] = transposedFactorMatrix2[k][j] + LEARNING_RATE * (2 * ERROR * factorMatrix1[i][k] - REGULARIZATION_RATE * transposedFactorMatrix2[k][j])
           }
         }
       }
     }
   
-    // Measure error
-    let threshold = 0
+    // Start calculating totalError
+    let totalError = 0
+
     for (let i = 0; i < ROW_COUNT; i++) {
       for (let j = 0; j < COLUMN_COUNT; j++) {
+
+        // Get actual value on target matrix
         const TRUE_VALUE = TARGET_MATRIX[i][j]
 
         // Process non-empty values
         if (TRUE_VALUE > 0) {
+
+          // Get difference of actual value and the current approximate value as error
           const CURRENT_VALUE = dot(factorMatrix1[i], columnVector(transposedFactorMatrix2, j))
           const ERROR = TRUE_VALUE - CURRENT_VALUE
-          threshold = threshold + square(ERROR)
+
+          // Increment totalError with current error
+          totalError = totalError + square(ERROR)
+
           for (let k = 0; k < LATENT_FEATURES_COUNT; k++) {
-            threshold = threshold + (regularization_rate / 2) * (square(factorMatrix1[i][k]) + square(factorMatrix1[k][j]))
+            totalError = totalError + (REGULARIZATION_RATE / 2) * (square(factorMatrix1[i][k]) + square(factorMatrix1[k][j]))
           }
         }
       }
     }
 
-    if (threshold < 0.001) return
+    // Complete factorization process if total error falls below a certain threshold
+    if (totalError < THRESHOLD) return
   })
 
   return [factorMatrix1, transpose(transposedFactorMatrix2)]
