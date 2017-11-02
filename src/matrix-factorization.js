@@ -1,37 +1,36 @@
 /**
  * Gets the factors of a matrix
  * 
- * @param {Array} R target matrix
- * @param {Number} K Number of latent features
+ * @param {Array} TARGET_MATRIX target matrix
+ * @param {Number} LATENT_FEATURES_COUNT Number of latent features
  * @param {Number} iters Number of times to move towards the real factors
  * @param {Number} learning_rate Learning rate
  * @param {Number} regularization_rate Regularization amount, i.e. amount of bias reduction
  * @returns {Array} An array containing the two factor matrices
  */
-function factorizeMatrix(R, K, iters=5000, learning_rate=0.0002, regularization_rate=0.02) {
-  const N = R.length
-  const M = R[0].length
-  const P = fillMatrix(N, K, () => Math.random())
-  const Q = fillMatrix(M, K, () => Math.random())
-  const QT = transpose(Q)
-  const ROW_COUNT = R.length
-  const COLUMN_COUNT = R[0].length
-  let error = 0
+function factorizeMatrix(TARGET_MATRIX, LATENT_FEATURES_COUNT, iters=5000, learning_rate=0.0002, regularization_rate=0.02) {
+  const FACTOR1_ROW_COUNT = TARGET_MATRIX.length
+  const FACTOR2_ROW_COUNT = TARGET_MATRIX[0].length
+  const factorMatrix1 = fillMatrix(FACTOR1_ROW_COUNT, LATENT_FEATURES_COUNT, () => Math.random())
+  const factorMatrix2 = fillMatrix(FACTOR2_ROW_COUNT, LATENT_FEATURES_COUNT, () => Math.random())
+  const transposedFactorMatrix2 = transpose(factorMatrix2)
+  const ROW_COUNT = TARGET_MATRIX.length
+  const COLUMN_COUNT = TARGET_MATRIX[0].length
 
   doFor(iters, () => {
 
     // Iteratively figure out correct factors
     for (let i = 0; i < ROW_COUNT; i++) {
       for (let j = 0; j < COLUMN_COUNT; j++) {
-        const trueValue = R[i][j]
+        const TRUE_VALUE = TARGET_MATRIX[i][j]
 
         // Process non-empty values
-        if (trueValue > 0) {
-          const currentValue = dot(P[i], columnVector(QT, j))
-          const error = trueValue - currentValue
-          for (let k = 0; k < K; k++) {
-            P[i][k] = P[i][k] + learning_rate * (2 * error * QT[k][j] - regularization_rate * P[i][k])
-            QT[k][j] = QT[k][j] + learning_rate * (2 * error * P[i][k] - regularization_rate * QT[k][j])
+        if (TRUE_VALUE > 0) {
+          const CURRENT_VALUE = dot(factorMatrix1[i], columnVector(transposedFactorMatrix2, j))
+          const ERROR = TRUE_VALUE - CURRENT_VALUE
+          for (let k = 0; k < LATENT_FEATURES_COUNT; k++) {
+            factorMatrix1[i][k] = factorMatrix1[i][k] + learning_rate * (2 * ERROR * transposedFactorMatrix2[k][j] - regularization_rate * factorMatrix1[i][k])
+            transposedFactorMatrix2[k][j] = transposedFactorMatrix2[k][j] + learning_rate * (2 * ERROR * factorMatrix1[i][k] - regularization_rate * transposedFactorMatrix2[k][j])
           }
         }
       }
@@ -41,15 +40,15 @@ function factorizeMatrix(R, K, iters=5000, learning_rate=0.0002, regularization_
     let threshold = 0
     for (let i = 0; i < ROW_COUNT; i++) {
       for (let j = 0; j < COLUMN_COUNT; j++) {
-        const trueValue = R[i][j]
+        const TRUE_VALUE = TARGET_MATRIX[i][j]
 
         // Process non-empty values
-        if (trueValue > 0) {
-          const currentValue = dot(P[i], columnVector(QT, j))
-          const error = trueValue - currentValue
-          threshold = threshold + square(error)
-          for (let k = 0; k < K; k++) {
-            threshold = threshold + (regularization_rate / 2) * (square(P[i][k]) + square(P[k][j]))
+        if (TRUE_VALUE > 0) {
+          const CURRENT_VALUE = dot(factorMatrix1[i], columnVector(transposedFactorMatrix2, j))
+          const ERROR = TRUE_VALUE - CURRENT_VALUE
+          threshold = threshold + square(ERROR)
+          for (let k = 0; k < LATENT_FEATURES_COUNT; k++) {
+            threshold = threshold + (regularization_rate / 2) * (square(factorMatrix1[i][k]) + square(factorMatrix1[k][j]))
           }
         }
       }
@@ -58,7 +57,7 @@ function factorizeMatrix(R, K, iters=5000, learning_rate=0.0002, regularization_
     if (threshold < 0.001) return
   })
 
-  return [P, transpose(QT)]
+  return [factorMatrix1, transpose(transposedFactorMatrix2)]
 }
 
 /***************************
