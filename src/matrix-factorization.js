@@ -18,7 +18,6 @@ function factorizeMatrix(TARGET_MATRIX, LATENT_FEATURES_COUNT, iters=5000, learn
   const COLUMN_COUNT = TARGET_MATRIX[0].length
 
   doFor(iters, () => {
-
     // Iteratively figure out correct factors
     for (let i = 0; i < ROW_COUNT; i++) {
       for (let j = 0; j < COLUMN_COUNT; j++) {
