@@ -8,7 +8,7 @@
  * @param {Number} REGULARIZATION_RATE Regularization amount, i.e. amount of bias reduction
  * @returns {Array} An array containing the two factor matrices
  */
-function factorizeMatrix(TARGET_MATRIX, LATENT_FEATURES_COUNT, ITERS=5000, LEARNING_RATE=0.0002, REGULARIZATION_RATE=0.02, THRESHOLD=0.001) {
+function factorizeMatrix(TARGET_MATRIX, LATENT_FEATURES_COUNT=5, ITERS=5000, LEARNING_RATE=0.0002, REGULARIZATION_RATE=0.02, THRESHOLD=0.001) {
   const FACTOR1_ROW_COUNT = TARGET_MATRIX.length
   const FACTOR2_ROW_COUNT = TARGET_MATRIX[0].length
   const factorMatrix1 = fillMatrix(FACTOR1_ROW_COUNT, LATENT_FEATURES_COUNT, () => Math.random())
@@ -16,45 +16,49 @@ function factorizeMatrix(TARGET_MATRIX, LATENT_FEATURES_COUNT, ITERS=5000, LEARN
   const transposedFactorMatrix2 = transpose(factorMatrix2)
   const ROW_COUNT = TARGET_MATRIX.length
   const COLUMN_COUNT = TARGET_MATRIX[0].length
+  const updateLatentFeature = (latentFeatureA, latentFeatureB, error) => latentFeatureA + LEARNING_RATE * (2 * error * latentFeatureB - REGULARIZATION_RATE * latentFeatureA)
 
   doFor(ITERS, () => {
 
     // Iteratively figure out correct factors
-    for (let i = 0; i < ROW_COUNT; i++) {
-      for (let j = 0; j < COLUMN_COUNT; j++) {
+    doFor(ROW_COUNT, i => {
+      doFor(COLUMN_COUNT, j => {
 
         // Get actual value on target matrix
         const TRUE_VALUE = TARGET_MATRIX[i][j]
+        
+          // Process non-empty values
+          if (TRUE_VALUE > 0) {
+  
+            // Get difference of actual value and the current approximate value as error
+            const CURRENT_VALUE = dot(factorMatrix1[i], columnVector(transposedFactorMatrix2, j))
+            const ERROR = TRUE_VALUE - CURRENT_VALUE
+  
+            // Update factor matrices
+            doFor(LATENT_FEATURES_COUNT, k => {
+  
+              const latentFeatureA = factorMatrix1[i][k]
+              const latentFeatureB = transposedFactorMatrix2[k][j]
 
-        // Process non-empty values
-        if (TRUE_VALUE > 0) {
-
-          // Get difference of actual value and the current approximate value as error
-          const CURRENT_VALUE = dot(factorMatrix1[i], columnVector(transposedFactorMatrix2, j))
-          const ERROR = TRUE_VALUE - CURRENT_VALUE
-
-          // Update factor matrices
-          for (let k = 0; k < LATENT_FEATURES_COUNT; k++) {
-
-            // Update factor matrix 1
-            factorMatrix1[i][k] = factorMatrix1[i][k] + LEARNING_RATE * (2 * ERROR * transposedFactorMatrix2[k][j] - REGULARIZATION_RATE * factorMatrix1[i][k])
-
-            // Update factor matrix 2
-            transposedFactorMatrix2[k][j] = transposedFactorMatrix2[k][j] + LEARNING_RATE * (2 * ERROR * factorMatrix1[i][k] - REGULARIZATION_RATE * transposedFactorMatrix2[k][j])
+              // Update latent feature k of factor matrix 1
+              factorMatrix1[i][k] = updateLatentFeature(latentFeatureA, latentFeatureB, ERROR)
+              
+              // Update latent feature k of factor matrix 2
+              transposedFactorMatrix2[k][j] = updateLatentFeature(latentFeatureB, latentFeatureA, ERROR)
+            })
           }
-        }
-      }
-    }
+      })
+    })
   
     // Start calculating totalError
     let totalError = 0
 
-    for (let i = 0; i < ROW_COUNT; i++) {
-      for (let j = 0; j < COLUMN_COUNT; j++) {
+    doFor(ROW_COUNT, i => {
+      doFor(COLUMN_COUNT, j => {
 
         // Get actual value on target matrix
         const TRUE_VALUE = TARGET_MATRIX[i][j]
-
+        
         // Process non-empty values
         if (TRUE_VALUE > 0) {
 
@@ -65,12 +69,12 @@ function factorizeMatrix(TARGET_MATRIX, LATENT_FEATURES_COUNT, ITERS=5000, LEARN
           // Increment totalError with current error
           totalError = totalError + square(ERROR)
 
-          for (let k = 0; k < LATENT_FEATURES_COUNT; k++) {
-            totalError = totalError + (REGULARIZATION_RATE / 2) * (square(factorMatrix1[i][k]) + square(factorMatrix1[k][j]))
-          }
+          doFor(LATENT_FEATURES_COUNT, k => {
+            totalError = totalError + (REGULARIZATION_RATE / 2) * (square(factorMatrix1[i][k]) + square(transposedFactorMatrix2[k][j]))
+          })
         }
-      }
-    }
+      })
+    })
 
     // Complete factorization process if total error falls below a certain threshold
     if (totalError < THRESHOLD) return
@@ -199,7 +203,7 @@ function fillMatrix(n, m, fill = () => 0) {
  */
 function doFor(n, fn) {
   let i = 0
-  while(i++ < n) fn()
+  while(i < n) fn(i++)
 }
 
 // Functions to export
