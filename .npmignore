@@ -1,6 +1,7 @@
 src/
 docs/
 tests/
+coverage/
 node_modules/
 codealike.json
-.esdoc.json
+.nyc_output
