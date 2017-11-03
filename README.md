@@ -55,7 +55,7 @@ This will expose a `matrixFactorization` variable which you can access the funct
 
 ### Include using CDN
 ```html
-<script src="https://cdn.jsdelivr.net/npm/matrix-factorization@1.0.0/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/matrix-factorization@1.1.2/index.min.js"></script>
 ```
 This will expose a `matrixFactorization` variable which you can access the functions from.
 
