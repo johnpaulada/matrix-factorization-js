@@ -71,6 +71,7 @@ function factorizeMatrix(TARGET_MATRIX, LATENT_FEATURES_COUNT=5, ITERS=5000, LEA
  * @param {Array} factorMatrix1 
  * @param {Array} transposedFactorMatrix2 
  * @returns {Number}
+ * @private
  */
 function calculateError(ROW_COUNT, COLUMN_COUNT, TARGET_MATRIX, LATENT_FEATURES_COUNT, REGULARIZATION_RATE, factorMatrix1, transposedFactorMatrix2) {
   let totalError = 0
@@ -101,6 +102,18 @@ function calculateError(ROW_COUNT, COLUMN_COUNT, TARGET_MATRIX, LATENT_FEATURES_
   return totalError
 }
 
+/**
+ * Build completed matrix from matrix factors.
+ * 
+ * @param {Array} factors Derived matrix factors
+ * @returns {Array} Completed matrix
+ */
+function buildCompletedMatrix(factors) {
+  const [FACTOR1, FACTOR2] = factors
+
+  return dot(FACTOR1, transpose(FACTOR2))
+}
+
 /***************************
  * Helper Functions        *
  ***************************/
@@ -110,6 +123,7 @@ function calculateError(ROW_COUNT, COLUMN_COUNT, TARGET_MATRIX, LATENT_FEATURES_
  * 
  * @param {Array} matrix Target matrix
  * @returns {Array} The transposed matrix
+ * @private
  */
 function transpose(matrix) {
   if (isMatrix(matrix)) {
@@ -125,8 +139,10 @@ function transpose(matrix) {
 
 /**
  * Checks if value passed is a matrix.
+ * 
  * @param {Array} m Value to check
  * @returns {boolean} True if matrix, false if not
+ * @private
  */
 function isMatrix(m) {
   return Array.isArray(m[0])
@@ -138,6 +154,7 @@ function isMatrix(m) {
  * @param {Array} m First matrix
  * @param {Array} n Second matrix
  * @returns {Array} Dot product of the two matrices
+ * @private
  */
 function dot(m, n) {
   const transposedN = transpose(n)
@@ -155,6 +172,7 @@ function dot(m, n) {
  * @param {Array} matrix 
  * @param {Number} index
  * @returns {Array}
+ * @private
  */
 function columnVector(matrix, index) {
   return matrix.map(m => m[index])
@@ -166,6 +184,7 @@ function columnVector(matrix, index) {
  * @param {Array} v 
  * @param {Array} w 
  * @returns {Number}
+ * @private
  */
 function dotVectors(v, w) {
   return bimap(v, w, (x, y) => x * y).reduce((sum, x) => sum + x)
@@ -178,6 +197,7 @@ function dotVectors(v, w) {
  * @param {Array} a2 
  * @param {Function} fn A function that accepts two values and returns a single value 
  * @returns A list which is a combination of the two lists
+ * @private
  */
 function bimap(a1, a2, fn) {
   return a1.map((item, i) => fn(item, a2[i]))
@@ -188,6 +208,7 @@ function bimap(a1, a2, fn) {
  * 
  * @param {Number} x 
  * @returns {Number}
+ * @private
  */
 function square(x) {
   return Math.pow(x, 2)
@@ -200,6 +221,7 @@ function square(x) {
  * @param {Array} m Number of columns
  * @param {Function} fill Function used to fill the matrix with
  * @returns {Array} The filled matrix
+ * @private
  */
 function fillMatrix(n, m, fill = () => 0) {
   let matrix = []
@@ -218,6 +240,7 @@ function fillMatrix(n, m, fill = () => 0) {
  * 
  * @param {Number} n Number of times to execute function
  * @param {Function} fn Function to execute
+ * @private
  */
 function doFor(n, fn) {
   let i = 0
@@ -227,9 +250,7 @@ function doFor(n, fn) {
 // Functions to export
 const toExport = {
   factorizeMatrix,
-  fillMatrix,
-  transpose,
-  dot
+  buildCompletedMatrix
 }
 
 // If in Node, export as module

@@ -1,12 +1,10 @@
 const {
-  factorizeMatrix,
-  fillMatrix,
-  dot,
-  transpose
+  buildCompletedMatrix,
+  factorizeMatrix
 } = require('./matrix-factorization')
 
 // Original matrix
-const R = [
+const TARGET_MATRIX = [
   [5,3,0,1],
   [4,0,0,1],
   [1,1,0,5],
@@ -14,11 +12,6 @@ const R = [
   [0,1,5,4],
 ]
 
-// Number of latent features
-const K = 2
-
-const [P, Q] = factorizeMatrix(R, K)
-const newR = dot(P, transpose(Q))
-
-// New table using the generated factors
-console.log(newR)
+const LATENT_FEATURE_COUNT = 2
+const COMPLETED_MATRIX = buildCompletedMatrix(factorizeMatrix(TARGET_MATRIX, LATENT_FEATURE_COUNT))
+console.log(COMPLETED_MATRIX)
