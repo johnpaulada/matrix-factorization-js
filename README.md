@@ -12,7 +12,7 @@ A matrix factorization implementation in Javascript.
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
 
-*To try an interactive example, clone and edit this [Runkit Notebook](https://runkit.com/johnpaulada/matrix-factorization-js-usage-example).*
+*To try an interactive example, clone and edit this [Runkit Notebook](https://runkit.com/johnpaulada/matrix-factorization-js-usage-example-2.0).*
 
 ## Installing / Getting started
 
