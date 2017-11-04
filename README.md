@@ -66,7 +66,7 @@ Just reference a function using the dot notation or get the functions from the `
 ```javascript
 matrixFactorization.factorizeMatrix(targetMatrix)
 // or
-var factorizeMatrix = matrixFactorization
+var factorizeMatrix = matrixFactorization.factorizeMatrix
 factorizeMatrix(targetMatrix)
 ```
 
