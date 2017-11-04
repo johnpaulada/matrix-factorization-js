@@ -55,27 +55,35 @@ This will expose a `matrixFactorization` variable which you can access the funct
 
 ### Include using CDN
 ```html
-<script src="https://cdn.jsdelivr.net/npm/matrix-factorization@1.1.2/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/matrix-factorization@2.0.0/index.min.js"></script>
 ```
 This will expose a `matrixFactorization` variable which you can access the functions from.
 
 ### Using a function in the library:
 
-Just reference a function using the dot notation. For example, to use the sum function, you can do:
+Just reference a function using the dot notation or get the functions from the `matrixFactorization` object. For example, to use the sum function, you can do:
 
 ```javascript
-matrixFactorization.factorizeMatrix(targetMatrix, numberOfLatentFactors)
+matrixFactorization.factorizeMatrix(targetMatrix)
+// or
+var factorizeMatrix = matrixFactorization
+factorizeMatrix(targetMatrix)
 ```
 
 ### Example
 ```javascript
-var factors = factorizeMatrix(targetMatrix, numberOfLatentFactors)
-var completeMatrix = matrixFactorization.dot(factors[0], matrixFactorization.transpose(factors[1]))
+var targetMatrix = [
+  [5,3,0,1],
+  [4,0,0,1],
+  [1,1,0,5],
+  [1,0,0,4],
+  [0,1,5,4],
+]
+var latentFeatureCount = 2
+var factors = factorizeMatrix(targetMatrix, latentFeatureCount)
+var completeMatrix = buildCompletedMatrix(factors)
+console.log(completeMatrix)
 ```
-
-## Roadmap
-1. Create demo app.
-2. Improve docs.
 
 ## Notes
 Implementation based on this [article](http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/) by [@albertauyeung](https://github.com/albertauyeung).
