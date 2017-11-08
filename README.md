@@ -2,7 +2,8 @@
 A matrix factorization implementation in Javascript.
 *This is a Work in Progress. Use at your own risk.*
 
-[![Build Status](https://travis-ci.org/johnpaulada/matrix-factorization-js.svg?branch=master)](https://travis-ci.org/johnpaulada/matrix-factorization-js)[![DeepScan Grade](https://deepscan.io/api/projects/1028/branches/2039/badge/grade.svg)](https://deepscan.io/dashboard/#view=project&pid=1028&bid=2039)
+[![Build Status](https://travis-ci.org/johnpaulada/matrix-factorization-js.svg?branch=master)](https://travis-ci.org/johnpaulada/matrix-factorization-js)
+[![DeepScan Grade](https://deepscan.io/api/projects/1028/branches/2039/badge/grade.svg)](https://deepscan.io/dashboard/#view=project&pid=1028&bid=2039)
 [![codebeat badge](https://codebeat.co/badges/af1fbd1b-cbbf-4875-80be-4f4a9b9993dc)](https://codebeat.co/projects/github-com-johnpaulada-matrix-factorization-js-master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/559d5ffb94f93481494e/maintainability)](https://codeclimate.com/github/johnpaulada/matrix-factorization-js/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/johnpaulada/matrix-factorization-js/badge.svg?branch=master)](https://coveralls.io/github/johnpaulada/matrix-factorization-js?branch=master)
