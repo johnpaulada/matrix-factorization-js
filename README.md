@@ -7,6 +7,7 @@ A matrix factorization implementation in Javascript.
 [![codebeat badge](https://codebeat.co/badges/af1fbd1b-cbbf-4875-80be-4f4a9b9993dc)](https://codebeat.co/projects/github-com-johnpaulada-matrix-factorization-js-master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/559d5ffb94f93481494e/maintainability)](https://codeclimate.com/github/johnpaulada/matrix-factorization-js/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/johnpaulada/matrix-factorization-js/badge.svg?branch=master)](https://coveralls.io/github/johnpaulada/matrix-factorization-js?branch=master)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjohnpaulada%2Fmatrix-factorization-js.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjohnpaulada%2Fmatrix-factorization-js?ref=badge_shield)
 [![](https://data.jsdelivr.com/v1/package/npm/matrix-factorization/badge)](https://www.jsdelivr.com/package/npm/matrix-factorization)
 
 [![forthebadge](http://forthebadge.com/images/badges/uses-js.svg)](http://forthebadge.com)
@@ -91,3 +92,5 @@ Implementation based on this [article](http://www.quuxlabs.com/blog/2010/09/matr
 
 ## License
 MIT
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjohnpaulada%2Fmatrix-factorization-js.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjohnpaulada%2Fmatrix-factorization-js?ref=badge_large)
